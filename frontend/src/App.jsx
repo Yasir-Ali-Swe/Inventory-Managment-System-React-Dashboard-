@@ -6,6 +6,7 @@ import Cashier from './Pages/Cashier.jsx';
 import Sales from './Pages/Sales.jsx';
 import Profile from './Pages/Profile.jsx';
 
+
 const App = () => {
   return (
     <div>
