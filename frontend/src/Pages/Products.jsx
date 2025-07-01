@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState } from 'react'
 const Categories = [
-  { value: 'Select Category' ,},
+  { value: 'Select Category (default is All)' ,},
   { value: 'Departmental' ,},
   { value: 'Medical' },
   { value: 'Electronics' },
