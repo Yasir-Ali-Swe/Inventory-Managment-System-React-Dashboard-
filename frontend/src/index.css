@@ -1,11 +1,2 @@
 @import "tailwindcss";
 
-body{
-  background-color: var(--color-mainBg);
-}
-
-@theme{
-  --color-mainBg: #393E46;
-  --color-mainForground: #222831;
-  --color-textColor: #F8FAFC;
-}
