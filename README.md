@@ -49,7 +49,7 @@ This system allows admins and salesmen to efficiently manage products, customers
 | **Backend** | Node.js, Express.js, MongoDB, Mongoose |
 | **Frontend** | React.js, React Router, Context API or Redux |
 | **Auth** | JWT-based authentication & role-based access control |
-| **Styling** | Tailwind CSS / Bootstrap (optional) |
+| **Styling** | Tailwind CSS |
 | **Other** | Axios, bcrypt, dotenv |
 
 ---
