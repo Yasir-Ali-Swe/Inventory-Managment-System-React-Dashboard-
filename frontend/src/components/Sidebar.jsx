@@ -1,5 +1,6 @@
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 const Sidebar = () => {
+    const navigate = useNavigate();
     const pathname = useLocation().pathname;
     const links = [
         {
@@ -23,6 +24,10 @@ const Sidebar = () => {
             path: '/analytics'
         },
     ]
+
+    const handleLogout = () => {
+        navigate('/login');
+    }
     return (
         <div className='w-[17%] h-screen bg-secondary'>
             <div className='Logo py-8'>
@@ -34,13 +39,13 @@ const Sidebar = () => {
                     {
                         links.map((item, index) => {
                             return (
-                                <Link to={item.path} className={pathname === item.path ? `pl-16 font-bold text-lg text-primary cursor-pointer bg-tertiary w-[85%] mx-auto rounded-2xl py-2` : `pl-16 font-bold text-lg text-textColor cursor-pointer hover:bg-primary hover:text-tertiary w-[85%] mx-auto rounded-2xl py-2`}>
+                                <Link to={item.path} className={pathname === item.path ? `pl-16 font-bold text-lg text-primary cursor-pointer bg-tertiary w-[85%] mx-auto rounded-lg py-2` : `pl-16 font-bold text-lg text-textColor cursor-pointer hover:bg-primary hover:text-tertiary w-[85%] mx-auto rounded-lg py-2`}>
                                     {item.name}
                                 </Link>
                             )
                         })
                     }
-                    <li className='pl-16 font-bold text-lg text-textColor cursor-pointer hover:bg-primary hover:text-tertiary w-[85%] mx-auto rounded-2xl py-2'>
+                    <li onClick={handleLogout} className='pl-16 font-bold text-lg text-textColor cursor-pointer hover:bg-primary hover:text-tertiary w-[85%] mx-auto rounded-lg py-2'>
                         Logout
                     </li>
                 </ul>
