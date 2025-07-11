@@ -1,4 +1,4 @@
-import { Link ,useLocation} from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 const Sidebar = () => {
     const pathname = useLocation().pathname;
     const links = [
@@ -34,9 +34,9 @@ const Sidebar = () => {
                     {
                         links.map((item, index) => {
                             return (
-                                <li key={index} className={pathname===item.path ? `pl-16 font-bold text-lg text-primary cursor-pointer bg-tertiary w-[85%] mx-auto rounded-2xl py-2` : `pl-16 font-bold text-lg text-textColor cursor-pointer hover:bg-primary hover:text-tertiary w-[85%] mx-auto rounded-2xl py-2`}>
-                                    <Link to={item.path}>{item.name}</Link>
-                                </li>
+                                <Link to={item.path} className={pathname === item.path ? `pl-16 font-bold text-lg text-primary cursor-pointer bg-tertiary w-[85%] mx-auto rounded-2xl py-2` : `pl-16 font-bold text-lg text-textColor cursor-pointer hover:bg-primary hover:text-tertiary w-[85%] mx-auto rounded-2xl py-2`}>
+                                    {item.name}
+                                </Link>
                             )
                         })
                     }
