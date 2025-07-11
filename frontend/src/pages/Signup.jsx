@@ -1,8 +1,9 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link ,useNavigate} from 'react-router-dom'
 import { useState } from 'react'
 
 const Signup = () => {
+  const navigate = useNavigate();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -10,6 +11,7 @@ const Signup = () => {
   const handleSignup = (e) => {
     e.preventDefault();
     console.log(name,email, password);
+    navigate('/login');
   }
   return (
     <div className='h-screen w-screen bg-primary flex justify-center items-center'>
