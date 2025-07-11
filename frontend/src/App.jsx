@@ -1,12 +1,23 @@
-import React from 'react'
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Login, Signup, Categories, Salesman, Analytics, Reports, Dashboard ,Products } from './pages/index.jsx';
+import { Layout } from './components/index.jsx';
 
 const App = () => {
   return (
-    <div className='w-screen h-screen flex justify-center items-center bg-primary'>
-      <div className='w-[25%] h-[50%] bg-secondary flex justify-center items-center'>
-        <h1 className='text-3xl text-tertiary font-black underline text-center'>Inventory Management System</h1>
-      </div>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path='/' element={<Layout />}>
+          <Route index element={<Dashboard />} />
+          <Route path='products' element={<Products />} />
+          <Route path='categories' element={<Categories />} />
+          <Route path='salesman' element={<Salesman />} />
+          <Route path='analytics' element={<Analytics />} />
+          <Route path='reports' element={<Reports />} />
+        </Route>  
+        <Route path='login' element={<Login />} />
+        <Route path='signup' element={<Signup />} />
+      </Routes>
+    </BrowserRouter>
   )
 }
 
