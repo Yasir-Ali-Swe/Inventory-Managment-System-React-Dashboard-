@@ -6,4 +6,6 @@ import Categories from "./Categories.jsx";
 import Salesman from "./Salesman.jsx";
 import Analytics from "./Analytics.jsx";
 import Reports from "./Reports.jsx";
-export { Dashboard, Login, Signup, Products, Categories, Salesman, Analytics, Reports };
+import Profile from "./Profile.jsx";
+import Invoice from "./Invoice.jsx";
+export { Dashboard, Login, Signup, Products, Categories, Salesman, Analytics, Reports, Profile, Invoice };
