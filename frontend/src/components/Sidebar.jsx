@@ -20,8 +20,16 @@ const Sidebar = () => {
             path: '/salesman'
         },
         {
+            name: 'Invoice',
+            path: '/invoice'
+        },
+        {
             name: 'Analytics',
             path: '/analytics'
+        },
+         {
+            name: 'Profile',
+            path: '/profile'
         },
     ]
 
@@ -29,7 +37,7 @@ const Sidebar = () => {
         navigate('/login');
     }
     return (
-        <div className='w-[17%] h-screen bg-secondary'>
+        <div className='w-[100%] h-screen bg-secondary'>
             <div className='Logo py-8'>
                 <h1 className='text-xl text-textColor font-bold text-center hover:text-tertiary cursor-pointer'>Inventory Management System</h1>
             </div>
