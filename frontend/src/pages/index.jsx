@@ -8,5 +8,4 @@ import Analytics from "./Analytics.jsx";
 import Reports from "./Reports.jsx";
 import Profile from "./Profile.jsx";
 import Invoice from "./Invoice.jsx";
-import AddProduct from "./AddProduct.jsx";
-export { Dashboard, Login, Signup, Products, Categories, Salesman, Analytics, Reports, Profile, Invoice, AddProduct };
+export { Dashboard, Login, Signup, Products, Categories, Salesman, Analytics, Reports, Profile, Invoice };
