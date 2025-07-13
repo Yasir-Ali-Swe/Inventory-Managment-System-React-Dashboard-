@@ -22,32 +22,70 @@ const Category = ({ onEditCategory, onAddCategory }) => {
   };
 
   return (
-    <div className='h-full w-full px-2'>
-      <div className='CategoriesHeader py-[38px] bg-secondary flex justify-between px-3'>
-        <h1 className='text-2xl text-textColor font-bold hover:text-tertiary cursor-pointer'>
+    <div className='min-h-screen w-full p-2 lg:p-4'>
+      <div className='CategoriesHeader py-6 lg:py-11 bg-secondary rounded-lg mb-4 flex flex-col lg:flex-row justify-between px-4 lg:px-6 gap-4'>
+        <h1 className='text-xl lg:text-2xl text-textColor font-bold hover:text-tertiary cursor-pointer'>
           Categories
         </h1>
         <button 
           onClick={handleAddClick}
-          className='bg-green py-2 px-8 text-lg text-textColor rounded-lg cursor-pointer'
+          className='bg-green py-2 px-4 lg:px-8 text-base lg:text-lg text-textColor rounded-lg cursor-pointer hover:bg-opacity-80 transition-colors w-full lg:w-auto'
         >
           Add Category
         </button>
       </div>
 
-      <div className='my-4 mx-3'>
-        <div className="filters border-textColor border-1 p-4 rounded-md flex items-center gap-5">
+      <div className='my-4 mx-2 lg:mx-3'>
+        <div className="filters border-textColor border-1 p-3 lg:p-4 rounded-md flex items-center gap-3 lg:gap-5">
           <input 
             type="text" 
             placeholder='Search By Name or Supplier' 
-            className='w-[50%] py-2 px-3 text-textColor rounded-lg focus:outline-none focus:ring-2 focus:ring-textColor border-2 border-textColor'
+            className='w-full py-2 px-3 text-textColor rounded-lg focus:outline-none focus:ring-2 focus:ring-textColor border-2 border-textColor'
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
         </div>
       </div>
 
-      <div className="CategoriesData my-4 mx-3 flex justify-center text-textColor">
+      {/* Mobile Card View */}
+      <div className="lg:hidden my-4 mx-2">
+        <div className="grid grid-cols-1 gap-3">
+          {filteredCategories.map((category, index) => (
+            <div key={index} className="bg-secondary rounded-lg p-4 border border-textColor">
+              <div className="flex justify-between items-start mb-2">
+                <h3 className="font-bold text-textColor text-lg">{category.name}</h3>
+                <span className="px-2 py-1 rounded text-xs font-semibold bg-green text-textColor">
+                  {category.products} products
+                </span>
+              </div>
+              <div className="grid grid-cols-2 gap-2 text-sm mb-3">
+                <div>
+                  <span className="text-textColor opacity-70">Supplier:</span>
+                  <p className="font-semibold truncate">{category.supplier}</p>
+                </div>
+                <div>
+                  <span className="text-textColor opacity-70">Sales:</span>
+                  <p className="font-semibold">${category.sales}</p>
+                </div>
+              </div>
+              <div className="flex gap-2">
+                <button 
+                  onClick={() => handleEditClick(category)}
+                  className='bg-green py-1 px-3 text-sm text-textColor rounded-lg flex-1'
+                >
+                  Edit
+                </button>
+                <button className='bg-red py-1 px-3 text-sm text-textColor rounded-lg flex-1'>
+                  Delete
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Desktop Table View */}
+      <div className="hidden lg:block CategoriesData my-4 mx-3 flex justify-center text-textColor">
         <div className="table-container w-full max-w-full h-[500px] overflow-auto border border-textColor rounded-lg">
           <table className='w-full min-w-[1000px] table-fixed'>
             <thead className='bg-secondary text-textColor sticky top-0 z-10'>

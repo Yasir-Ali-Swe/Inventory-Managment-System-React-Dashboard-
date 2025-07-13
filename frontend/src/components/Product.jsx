@@ -45,21 +45,22 @@ const Product = ({ onEditProduct, onAddProduct }) => {
   };
 
   return (
-    <div className='h-full w-full px-2'>
-      <div className='ProductHeader py-11 bg-secondary'>
-        <h1 className='text-2xl text-textColor font-bold hover:text-tertiary cursor-pointer'>Manage All Products</h1>
+    <div className='min-h-screen w-full p-2 lg:p-4'>
+      <div className='ProductHeader py-6 lg:py-11 bg-secondary rounded-lg mb-4'>
+        <h1 className='text-xl lg:text-2xl text-textColor font-bold hover:text-tertiary cursor-pointer px-4 lg:px-0'>Manage All Products</h1>
       </div>
-      <div className='my-4 mx-3'>
-        <div className="filters border-textColor border-1 p-4 rounded-md flex items-center gap-5">
+      
+      <div className='my-4 mx-2 lg:mx-3'>
+        <div className="filters border-textColor border-1 p-3 lg:p-4 rounded-md flex flex-col lg:flex-row items-center gap-3 lg:gap-5">
           <input 
             type="text" 
             placeholder='Search By Name' 
-            className='w-[30%] py-2 px-3 text-textColor rounded-lg focus:outline-none focus:ring-2 focus:ring-textColor border-2 border-textColor'
+            className='w-full lg:w-[30%] py-2 px-3 text-textColor rounded-lg focus:outline-none focus:ring-2 focus:ring-textColor border-2 border-textColor'
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
           <select 
-            className='w-[30%] py-2 px-3 text-textColor rounded-lg focus:outline-none focus:ring-2 focus:ring-textColor border-2 border-textColor'
+            className='w-full lg:w-[30%] py-2 px-3 text-textColor rounded-lg focus:outline-none focus:ring-2 focus:ring-textColor border-2 border-textColor'
             value={selectedCategory}
             onChange={(e) => setSelectedCategory(e.target.value)}
           >
@@ -71,13 +72,60 @@ const Product = ({ onEditProduct, onAddProduct }) => {
           </select>
           <button 
             onClick={onAddProduct} 
-            className='bg-green py-2 px-8 text-lg text-textColor rounded-lg'
+            className='w-full lg:w-auto bg-green py-2 px-4 lg:px-8 text-base lg:text-lg text-textColor rounded-lg hover:bg-opacity-80 transition-colors'
           >
             Add Product
           </button>
         </div>
       </div>
-      <div className="tableData my-4 mx-3 flex justify-center text-textColor">
+      
+      {/* Mobile Card View */}
+      <div className="lg:hidden my-4 mx-2">
+        <div className="grid grid-cols-1 gap-3">
+          {filteredProducts.map((product, index) => (
+            <div key={index} className="bg-secondary rounded-lg p-4 border border-textColor">
+              <div className="flex justify-between items-start mb-2">
+                <h3 className="font-bold text-textColor text-lg">{product.name}</h3>
+                <span className={`px-2 py-1 rounded text-xs font-semibold ${getCategoryColor(product.category)}`}>
+                  {product.category}
+                </span>
+              </div>
+              <div className="grid grid-cols-2 gap-2 text-sm mb-3">
+                <div>
+                  <span className="text-textColor opacity-70">Purchase Price:</span>
+                  <p className="font-semibold">${product.purchasePrice}</p>
+                </div>
+                <div>
+                  <span className="text-textColor opacity-70">Sales Price:</span>
+                  <p className="font-semibold">${product.salesPrice}</p>
+                </div>
+                <div>
+                  <span className="text-textColor opacity-70">Quantity:</span>
+                  <p className="font-semibold">{product.availableUnits}</p>
+                </div>
+                <div>
+                  <span className="text-textColor opacity-70">Sold:</span>
+                  <p className="font-semibold">{product.soldUnits}</p>
+                </div>
+              </div>
+              <div className="flex gap-2">
+                <button 
+                  onClick={() => handleEditClick(product)}
+                  className='bg-green py-1 px-3 text-sm text-textColor rounded-lg flex-1'
+                >
+                  Edit
+                </button>
+                <button className='bg-red py-1 px-3 text-sm text-textColor rounded-lg flex-1'>
+                  Delete
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Desktop Table View */}
+      <div className="hidden lg:block tableData my-4 mx-3 flex justify-center text-textColor">
         <div className="table-container w-full max-w-full h-[500px] overflow-auto border border-textColor rounded-lg">
           <table className='w-full min-w-[1200px] table-fixed'>
             <thead className='bg-secondary text-textColor sticky top-0 z-10'>

@@ -24,31 +24,55 @@ const WeeklySalesBySalesmanChart = () => {
   return (
     <div style={{
       width: '100%',
-      height: '400px',
+      height: '100%',
+      minHeight: '300px',
       background: '#081229',
       border: '1px solid #191d3a',
       borderRadius: '8px',
-      padding: '20px',
+      padding: '16px',
       boxSizing: 'border-box',
     }}>
-      <h3 style={{ marginBottom: '20px', fontSize: '1.25rem' ,color: '#ffffff' }}>
+      <h3 style={{ 
+        marginBottom: '16px', 
+        fontSize: '1rem', 
+        color: '#ffffff',
+        textAlign: 'center'
+      }}>
         Weekly Sales by Salesmen
       </h3>
-      <ResponsiveContainer width="100%" height="100%">
-        <BarChart
-          data={weeklySalesData}
-          margin={{ top: 10, right: 30, left: 0, bottom: 5 }}
-        >
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="day" />
-          <YAxis />
-          <Tooltip />
-          <Legend />
-          <Bar dataKey="Ali" fill="#4379F2" />
-          <Bar dataKey="Ahmed" fill="#5CB338" />
-          <Bar dataKey="Sarah" fill="#FFCC00" />
-        </BarChart>
-      </ResponsiveContainer>
+      <div style={{ width: '100%', height: 'calc(100% - 50px)', minHeight: '250px' }}>
+        <ResponsiveContainer width="100%" height="100%">
+          <BarChart
+            data={weeklySalesData}
+            margin={{ top: 10, right: 10, left: 0, bottom: 5 }}
+          >
+            <CartesianGrid strokeDasharray="3 3" stroke="#191d3a" />
+            <XAxis 
+              dataKey="day" 
+              stroke="#ffffff"
+              fontSize={12}
+              tick={{ fontSize: 10 }}
+            />
+            <YAxis 
+              stroke="#ffffff"
+              fontSize={12}
+              tick={{ fontSize: 10 }}
+            />
+            <Tooltip 
+              contentStyle={{ 
+                backgroundColor: '#191d3a', 
+                border: '1px solid #ec5990',
+                borderRadius: '8px',
+                color: '#ffffff'
+              }}
+            />
+            <Legend />
+            <Bar dataKey="Ali" fill="#4379F2" />
+            <Bar dataKey="Ahmed" fill="#5CB338" />
+            <Bar dataKey="Sarah" fill="#FFCC00" />
+          </BarChart>
+        </ResponsiveContainer>
+      </div>
     </div>
   );
 };
