@@ -2,11 +2,11 @@ import React from 'react'
 
 const Profile = ({ onEditProfile }) => {
   const profileData = {
-    name: "John Doe",
-    email: "johndoe@example.com",
+    name: "Yasir Ali",
+    email: "Yasir@example.com",
     role: "Admin",
     department: "Management",
-    phone: "+1 234 567 8900",
+    phone: "0330-1766870",
     address: "123 Main Street, City, State 12345",
     joinDate: "2023-01-15"
   };
