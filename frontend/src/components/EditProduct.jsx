@@ -6,21 +6,13 @@ const EditProduct = ({ product, onBackToProducts }) => {
     category: '',
     purchasePrice: '',
     salesPrice: '',
-    soldUnits: '',
     availableUnits: '',
     supplierContact: ''
   });
 
   const categories = [
-    "Electronics",
-    "Clothing", 
-    "Furniture",
-    "Books",
-    "Sports",
-    "Toys",
-    "Health",
-    "Beauty",
-    "Home"
+    'Electronics', 'Clothing', 'Furniture', 'Books', 'Sports',
+    'Toys', 'Health', 'Beauty', 'Home'
   ];
 
   useEffect(() => {
@@ -30,186 +22,133 @@ const EditProduct = ({ product, onBackToProducts }) => {
         category: product.category || '',
         purchasePrice: product.purchasePrice || '',
         salesPrice: product.salesPrice || '',
-        soldUnits: product.soldUnits || '',
         availableUnits: product.availableUnits || '',
         supplierContact: product.supplierContact || ''
       });
     }
   }, [product]);
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
+  const handleInputChange = (field, value) => {
     setFormData(prev => ({
       ...prev,
-      [name]: value
+      [field]: value
     }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Updated product data:', formData);
-    // Here you would typically make an API call to update the product
-    alert('Product updated successfully!');
     onBackToProducts();
   };
-
-  const handleCancel = () => {
-    onBackToProducts();
-  };
-
-  if (!product) {
-    return (
-      <div className='h-full w-full px-2'>
-        <div className='ProductHeader py-11 bg-secondary'>
-          <h1 className='text-2xl text-textColor font-bold'>No Product Selected</h1>
-        </div>
-      </div>
-    );
-  }
 
   return (
-    <div className='h-full w-full px-2'>
-      <div className='ProductHeader py-11 bg-secondary'>
-        <h1 className='text-2xl text-textColor font-bold hover:text-tertiary cursor-pointer'>Edit Product</h1>
+    <div className='min-h-screen w-full p-2 lg:p-4'>
+      <div className='EditProductHeader py-6 lg:py-8 rounded-lg mb-4'>
+        <h1 className='text-xl lg:text-2xl text-textColor font-bold hover:text-tertiary cursor-pointer px-4 lg:px-0 text-center'>Edit Product</h1>
       </div>
       
-      <div className='my-4 mx-3'>
-        <div className="edit-form border-textColor border-1 p-6 rounded-md bg-secondary">
-          <form onSubmit={handleSubmit} className='space-y-6'>
-            <div className='grid grid-cols-2 gap-6'>
-              {/* Product Name */}
-              <div>
-                <label className='block text-textColor text-sm font-bold mb-2'>
-                  Product Name
-                </label>
-                <input
-                  type="text"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleInputChange}
-                  className='w-full py-2 px-3 text-textColor rounded-lg focus:outline-none focus:ring-2 focus:ring-tertiary border-2 border-textColor bg-primary'
-                  required
-                />
+      <div className='flex justify-center'>
+        <div className='w-full max-w-2xl'>
+          <div className='bg-secondary rounded-lg p-6 lg:p-8'>
+            <form onSubmit={handleSubmit} className='space-y-6'>
+              <div className='grid grid-cols-1 lg:grid-cols-2 gap-6'>
+                <div>
+                  <label className='block text-textColor text-sm mb-2'>Product Name *</label>
+                  <input
+                    type="text"
+                    value={formData.name}
+                    onChange={(e) => handleInputChange('name', e.target.value)}
+                    className='w-full p-3 bg-primary text-textColor rounded-lg border border-textColor focus:outline-none focus:ring-2 focus:ring-tertiary'
+                    placeholder="Enter product name"
+                    required
+                  />
+                </div>
+                
+                <div>
+                  <label className='block text-textColor text-sm mb-2'>Category *</label>
+                  <select
+                    value={formData.category}
+                    onChange={(e) => handleInputChange('category', e.target.value)}
+                    className='w-full p-3 bg-primary text-textColor rounded-lg border border-textColor focus:outline-none focus:ring-2 focus:ring-tertiary'
+                    required
+                  >
+                    <option value="">Select Category</option>
+                    {categories.map((category, index) => (
+                      <option key={index} value={category}>{category}</option>
+                    ))}
+                  </select>
+                </div>
+                
+                <div>
+                  <label className='block text-textColor text-sm mb-2'>Purchase Price *</label>
+                  <input
+                    type="number"
+                    min="0"
+                    step="0.01"
+                    value={formData.purchasePrice}
+                    onChange={(e) => handleInputChange('purchasePrice', e.target.value)}
+                    className='w-full p-3 bg-primary text-textColor rounded-lg border border-textColor focus:outline-none focus:ring-2 focus:ring-tertiary'
+                    placeholder="0.00"
+                    required
+                  />
+                </div>
+                
+                <div>
+                  <label className='block text-textColor text-sm mb-2'>Sales Price *</label>
+                  <input
+                    type="number"
+                    min="0"
+                    step="0.01"
+                    value={formData.salesPrice}
+                    onChange={(e) => handleInputChange('salesPrice', e.target.value)}
+                    className='w-full p-3 bg-primary text-textColor rounded-lg border border-textColor focus:outline-none focus:ring-2 focus:ring-tertiary'
+                    placeholder="0.00"
+                    required
+                  />
+                </div>
+                
+                <div>
+                  <label className='block text-textColor text-sm mb-2'>Available Units *</label>
+                  <input
+                    type="number"
+                    min="0"
+                    value={formData.availableUnits}
+                    onChange={(e) => handleInputChange('availableUnits', e.target.value)}
+                    className='w-full p-3 bg-primary text-textColor rounded-lg border border-textColor focus:outline-none focus:ring-2 focus:ring-tertiary'
+                    placeholder="0"
+                    required
+                  />
+                </div>
+                
+                <div>
+                  <label className='block text-textColor text-sm mb-2'>Supplier Contact *</label>
+                  <input
+                    type="email"
+                    value={formData.supplierContact}
+                    onChange={(e) => handleInputChange('supplierContact', e.target.value)}
+                    className='w-full p-3 bg-primary text-textColor rounded-lg border border-textColor focus:outline-none focus:ring-2 focus:ring-tertiary'
+                    placeholder="supplier@example.com"
+                    required
+                  />
+                </div>
               </div>
-
-              {/* Category */}
-              <div>
-                <label className='block text-textColor text-sm font-bold mb-2'>
-                  Category
-                </label>
-                <select
-                  name="category"
-                  value={formData.category}
-                  onChange={handleInputChange}
-                  className='w-full py-2 px-3 text-textColor rounded-lg focus:outline-none focus:ring-2 focus:ring-tertiary border-2 border-textColor bg-primary'
-                  required
+              
+              <div className='flex justify-center gap-4 pt-6'>
+                <button
+                  type="button"
+                  onClick={onBackToProducts}
+                  className='bg-red px-6 py-3 text-textColor rounded-lg hover:bg-opacity-80 transition-colors'
                 >
-                  <option value="">Select Category</option>
-                  {categories.map((category) => (
-                    <option key={category} value={category}>{category}</option>
-                  ))}
-                </select>
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  className='bg-green px-6 py-3 text-textColor rounded-lg hover:bg-opacity-80 transition-colors'
+                >
+                  Update Product
+                </button>
               </div>
-
-              {/* Purchase Price */}
-              <div>
-                <label className='block text-textColor text-sm font-bold mb-2'>
-                  Purchase Price ($)
-                </label>
-                <input
-                  type="number"
-                  name="purchasePrice"
-                  value={formData.purchasePrice}
-                  onChange={handleInputChange}
-                  className='w-full py-2 px-3 text-textColor rounded-lg focus:outline-none focus:ring-2 focus:ring-tertiary border-2 border-textColor bg-primary'
-                  min="0"
-                  step="0.01"
-                  required
-                />
-              </div>
-
-              {/* Sales Price */}
-              <div>
-                <label className='block text-textColor text-sm font-bold mb-2'>
-                  Sales Price ($)
-                </label>
-                <input
-                  type="number"
-                  name="salesPrice"
-                  value={formData.salesPrice}
-                  onChange={handleInputChange}
-                  className='w-full py-2 px-3 text-textColor rounded-lg focus:outline-none focus:ring-2 focus:ring-tertiary border-2 border-textColor bg-primary'
-                  min="0"
-                  step="0.01"
-                  required
-                />
-              </div>
-
-              {/* Units Sold */}
-              <div>
-                <label className='block text-textColor text-sm font-bold mb-2'>
-                  Units Sold
-                </label>
-                <input
-                  type="number"
-                  name="soldUnits"
-                  value={formData.soldUnits}
-                  onChange={handleInputChange}
-                  className='w-full py-2 px-3 text-textColor rounded-lg focus:outline-none focus:ring-2 focus:ring-tertiary border-2 border-textColor bg-primary'
-                  min="0"
-                  required
-                />
-              </div>
-
-              {/* Available Units */}
-              <div>
-                <label className='block text-textColor text-sm font-bold mb-2'>
-                  Available Units
-                </label>
-                <input
-                  type="number"
-                  name="availableUnits"
-                  value={formData.availableUnits}
-                  onChange={handleInputChange}
-                  className='w-full py-2 px-3 text-textColor rounded-lg focus:outline-none focus:ring-2 focus:ring-tertiary border-2 border-textColor bg-primary'
-                  min="0"
-                  required
-                />
-              </div>
-
-              {/* Supplier Contact */}
-              <div className='col-span-2'>
-                <label className='block text-textColor text-sm font-bold mb-2'>
-                  Supplier Contact
-                </label>
-                <input
-                  type="email"
-                  name="supplierContact"
-                  value={formData.supplierContact}
-                  onChange={handleInputChange}
-                  className='w-full py-2 px-3 text-textColor rounded-lg focus:outline-none focus:ring-2 focus:ring-tertiary border-2 border-textColor bg-primary'
-                  required
-                />
-              </div>
-            </div>
-
-            {/* Action Buttons */}
-            <div className='flex gap-4 pt-4'>
-              <button
-                type="submit"
-                className='bg-green py-2 px-8 text-lg text-textColor rounded-lg hover:bg-opacity-80 transition-all'
-              >
-                Update Product
-              </button>
-              <button
-                type="button"
-                onClick={handleCancel}
-                className='bg-red py-2 px-8 text-lg text-textColor rounded-lg hover:bg-opacity-80 transition-all'
-              >
-                Cancel
-              </button>
-            </div>
-          </form>
+            </form>
+          </div>
         </div>
       </div>
     </div>

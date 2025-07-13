@@ -32,7 +32,6 @@ const Product = ({ onEditProduct, onAddProduct }) => {
            'text-textColor';
   };
 
-  // Filter products based on search term and selected category
   const filteredProducts = DummyProductData.filter(product => {
     const matchesSearch = product.name.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesCategory = selectedCategory === 'All' || product.category === selectedCategory;
@@ -40,14 +39,13 @@ const Product = ({ onEditProduct, onAddProduct }) => {
   });
 
   const handleEditClick = (product) => {
-    console.log('Edit button clicked for product:', product);
     onEditProduct(product);
   };
 
   return (
     <div className='min-h-screen w-full p-2 lg:p-4'>
-      <div className='ProductHeader py-6 lg:py-11 bg-secondary rounded-lg mb-4'>
-        <h1 className='text-xl lg:text-2xl text-textColor font-bold hover:text-tertiary cursor-pointer px-4 lg:px-0'>Manage All Products</h1>
+      <div className='ProductHeader py-6 lg:py-8 rounded-lg mb-4'>
+        <h1 className='text-xl lg:text-2xl text-textColor font-bold hover:text-tertiary cursor-pointer px-4 lg:px-0 text-center'>Manage All Products</h1>
       </div>
       
       <div className='my-4 mx-2 lg:mx-3'>
@@ -79,7 +77,6 @@ const Product = ({ onEditProduct, onAddProduct }) => {
         </div>
       </div>
       
-      {/* Mobile Card View */}
       <div className="lg:hidden my-4 mx-2">
         <div className="grid grid-cols-1 gap-3">
           {filteredProducts.map((product, index) => (
@@ -124,7 +121,6 @@ const Product = ({ onEditProduct, onAddProduct }) => {
         </div>
       </div>
 
-      {/* Desktop Table View */}
       <div className="hidden lg:block tableData my-4 mx-3 flex justify-center text-textColor">
         <div className="table-container w-full max-w-full h-[500px] overflow-auto border border-textColor rounded-lg">
           <table className='w-full min-w-[1200px] table-fixed'>

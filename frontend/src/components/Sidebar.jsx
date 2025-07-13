@@ -47,7 +47,6 @@ const Sidebar = ({ onClose }) => {
 
     return (
         <div className='w-full h-screen bg-secondary flex flex-col'>
-            {/* Mobile Close Button */}
             <div className='lg:hidden flex justify-end p-4'>
                 <button
                     onClick={onClose}

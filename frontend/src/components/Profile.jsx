@@ -1,133 +1,69 @@
 import React from 'react'
 
 const Profile = ({ onEditProfile }) => {
-  // Mock user data - in a real app this would come from context or props
-  const userProfile = {
+  const profileData = {
     name: "John Doe",
     email: "johndoe@example.com",
-    phone: "+1 (555) 123-4567",
-    address: "123 Main Street, New York, NY 10001",
     role: "Admin",
     department: "Management",
-    joinDate: "2023-01-15",
-    avatar: "https://via.placeholder.com/150"
+    phone: "+1 234 567 8900",
+    address: "123 Main Street, City, State 12345",
+    joinDate: "2023-01-15"
   };
 
   const handleEditClick = () => {
-    console.log('Edit Profile button clicked');
-    onEditProfile(userProfile);
+    onEditProfile(profileData);
   };
 
   return (
-    <div className='h-full w-full px-2'>
-      <div className='ProfileHeader py-11 bg-secondary'>
-        <h1 className='text-2xl text-textColor font-bold hover:text-tertiary cursor-pointer'>Manage Your Profile</h1>
+    <div className='min-h-screen w-full p-2 lg:p-4'>
+      <div className='ProfileHeader py-6 lg:py-8 rounded-lg mb-4'>
+        <h1 className='text-xl lg:text-2xl text-textColor font-bold hover:text-tertiary cursor-pointer px-4 lg:px-0 text-center'>User Profile</h1>
       </div>
       
-      <div className='my-2 mx-3'>
-        <div className="profile-container border-textColor border-1 p-4 rounded-md bg-secondary">
-          <div className='flex justify-between items-center mb-4'>
-            <h2 className='text-xl text-textColor font-bold'>Profile Information</h2>
-            <button 
-              onClick={handleEditClick}
-              className='bg-green py-2 px-6 text-lg text-textColor rounded-lg hover:bg-opacity-80 transition-all'
-            >
-              Edit Profile
-            </button>
-          </div>
-          
-          <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
-            {/* Profile Picture */}
-            <div className='md:col-span-2 flex justify-center mb-4'>
-              <div className='relative'>
-                <img 
-                  src={userProfile.avatar} 
-                  alt="Profile" 
-                  className='w-24 h-24 rounded-full border-4 border-tertiary'
-                />
-                <div className='absolute bottom-0 right-0 bg-green rounded-full p-1 cursor-pointer'>
-                  <svg className="w-3 h-3 text-textColor" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
-                  </svg>
+      <div className='flex justify-center'>
+        <div className='w-full max-w-2xl'>
+          <div className='bg-secondary rounded-lg p-6 lg:p-8'>
+            <div className='flex flex-col lg:flex-row items-center lg:items-start gap-6 lg:gap-8 mb-6'>
+              <div className='w-32 h-32 bg-tertiary rounded-full flex items-center justify-center'>
+                <span className='text-4xl text-textColor font-bold'>{profileData.name.charAt(0)}</span>
+              </div>
+              <div className='flex-1 text-center lg:text-left'>
+                <h2 className='text-2xl lg:text-3xl text-textColor font-bold mb-2'>{profileData.name}</h2>
+                <p className='text-textColor opacity-70 mb-1'>{profileData.role}</p>
+                <p className='text-textColor opacity-70'>{profileData.department}</p>
+              </div>
+            </div>
+            
+            <div className='grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6'>
+              <div className='space-y-3'>
+                <div>
+                  <label className='text-textColor opacity-70 text-sm'>Email</label>
+                  <p className='text-textColor font-semibold'>{profileData.email}</p>
+                </div>
+                <div>
+                  <label className='text-textColor opacity-70 text-sm'>Phone</label>
+                  <p className='text-textColor font-semibold'>{profileData.phone}</p>
+                </div>
+                <div>
+                  <label className='text-textColor opacity-70 text-sm'>Join Date</label>
+                  <p className='text-textColor font-semibold'>{profileData.joinDate}</p>
+                </div>
+              </div>
+              <div className='space-y-3'>
+                <div>
+                  <label className='text-textColor opacity-70 text-sm'>Address</label>
+                  <p className='text-textColor font-semibold'>{profileData.address}</p>
                 </div>
               </div>
             </div>
-
-            {/* Personal Information */}
-            <div className='space-y-3'>
-              <div>
-                <label className='block text-textColor text-sm font-bold mb-1'>Full Name</label>
-                <div className='bg-primary p-2 rounded-lg text-textColor text-sm'>
-                  {userProfile.name}
-                </div>
-              </div>
-
-              <div>
-                <label className='block text-textColor text-sm font-bold mb-1'>Email Address</label>
-                <div className='bg-primary p-2 rounded-lg text-textColor text-sm'>
-                  {userProfile.email}
-                </div>
-              </div>
-
-              <div>
-                <label className='block text-textColor text-sm font-bold mb-1'>Phone Number</label>
-                <div className='bg-primary p-2 rounded-lg text-textColor text-sm'>
-                  {userProfile.phone}
-                </div>
-              </div>
-
-              <div>
-                <label className='block text-textColor text-sm font-bold mb-1'>Address</label>
-                <div className='bg-primary p-2 rounded-lg text-textColor text-sm'>
-                  {userProfile.address}
-                </div>
-              </div>
-            </div>
-
-            {/* Work Information */}
-            <div className='space-y-3'>
-              <div>
-                <label className='block text-textColor text-sm font-bold mb-1'>Role</label>
-                <div className='bg-primary p-2 rounded-lg text-textColor text-sm'>
-                  {userProfile.role}
-                </div>
-              </div>
-
-              <div>
-                <label className='block text-textColor text-sm font-bold mb-1'>Department</label>
-                <div className='bg-primary p-2 rounded-lg text-textColor text-sm'>
-                  {userProfile.department}
-                </div>
-              </div>
-
-              <div>
-                <label className='block text-textColor text-sm font-bold mb-1'>Join Date</label>
-                <div className='bg-primary p-2 rounded-lg text-textColor text-sm'>
-                  {new Date(userProfile.joinDate).toLocaleDateString()}
-                </div>
-              </div>
-
-              <div>
-                <label className='block text-textColor text-sm font-bold mb-1'>Account Status</label>
-                <div className='bg-green p-2 rounded-lg text-textColor font-bold text-sm'>
-                  Active
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Additional Information */}
-          <div className='mt-4 pt-4 border-t border-textColor'>
-            <h3 className='text-lg text-textColor font-bold mb-3'>Account Settings</h3>
-            <div className='grid grid-cols-1 md:grid-cols-3 gap-3'>
-              <button className='bg-blue p-2 rounded-lg text-textColor hover:bg-opacity-80 transition-all text-sm'>
-                Change Password
-              </button>
-              <button className='bg-yellow p-2 rounded-lg text-textColor hover:bg-opacity-80 transition-all text-sm'>
-                Notification Settings
-              </button>
-              <button className='bg-red p-2 rounded-lg text-textColor hover:bg-opacity-80 transition-all text-sm'>
-                Privacy Settings
+            
+            <div className='mt-6 lg:mt-8 flex justify-center lg:justify-start'>
+              <button 
+                onClick={handleEditClick}
+                className='bg-green py-2 px-6 lg:px-8 text-textColor rounded-lg hover:bg-opacity-80 transition-colors'
+              >
+                Edit Profile
               </button>
             </div>
           </div>

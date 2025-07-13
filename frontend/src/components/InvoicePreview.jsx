@@ -4,7 +4,7 @@ const InvoicePreview = ({ invoiceData, onBackToInvoice }) => {
   if (!invoiceData) {
     return (
       <div className='h-full w-full px-2'>
-        <div className='InvoiceHeader py-11 bg-secondary'>
+        <div className='InvoiceHeader py-8 bg-secondary'>
           <h1 className='text-2xl text-textColor font-bold'>No Invoice Data</h1>
         </div>
       </div>

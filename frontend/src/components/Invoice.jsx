@@ -1,231 +1,203 @@
 import React, { useState } from 'react'
-import { DummyProductData } from "../pages/DummyData.js";
 
 const Invoice = ({ onGenerateInvoice }) => {
-  const [customerInfo, setCustomerInfo] = useState({
-    name: '',
-    contact: ''
+  const [invoiceData, setInvoiceData] = useState({
+    customerName: '',
+    customerEmail: '',
+    customerPhone: '',
+    items: [
+      { name: '', quantity: 1, price: 0 }
+    ]
   });
 
-  const [selectedProducts, setSelectedProducts] = useState([]);
-  const [searchTerm, setSearchTerm] = useState('');
-
-  // Filter products based on search term
-  const filteredProducts = DummyProductData.filter(product => {
-    const matchesSearch = product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         product.category.toLowerCase().includes(searchTerm.toLowerCase());
-    return matchesSearch;
-  });
-
-  const handleCustomerInfoChange = (e) => {
-    const { name, value } = e.target;
-    setCustomerInfo(prev => ({
+  const handleInputChange = (field, value) => {
+    setInvoiceData(prev => ({
       ...prev,
-      [name]: value
+      [field]: value
     }));
   };
 
-  const handleAddProduct = (product) => {
-    const existingProduct = selectedProducts.find(p => p.name === product.name);
-    
-    if (existingProduct) {
-      setSelectedProducts(prev => prev.map(p => 
-        p.name === product.name 
-          ? { ...p, quantity: p.quantity + 1, total: (p.quantity + 1) * p.salesPrice }
-          : p
-      ));
-    } else {
-      setSelectedProducts(prev => [...prev, {
-        ...product,
-        quantity: 1,
-        total: product.salesPrice
-      }]);
+  const handleItemChange = (index, field, value) => {
+    const newItems = [...invoiceData.items];
+    newItems[index] = {
+      ...newItems[index],
+      [field]: field === 'quantity' || field === 'price' ? parseFloat(value) || 0 : value
+    };
+    setInvoiceData(prev => ({
+      ...prev,
+      items: newItems
+    }));
+  };
+
+  const addItem = () => {
+    setInvoiceData(prev => ({
+      ...prev,
+      items: [...prev.items, { name: '', quantity: 1, price: 0 }]
+    }));
+  };
+
+  const removeItem = (index) => {
+    if (invoiceData.items.length > 1) {
+      const newItems = invoiceData.items.filter((_, i) => i !== index);
+      setInvoiceData(prev => ({
+        ...prev,
+        items: newItems
+      }));
     }
-  };
-
-  const handleQuantityChange = (productName, newQuantity) => {
-    if (newQuantity <= 0) {
-      setSelectedProducts(prev => prev.filter(p => p.name !== productName));
-    } else {
-      setSelectedProducts(prev => prev.map(p => 
-        p.name === productName 
-          ? { ...p, quantity: newQuantity, total: newQuantity * p.salesPrice }
-          : p
-      ));
-    }
-  };
-
-  const calculateSubtotal = () => {
-    return selectedProducts.reduce((sum, product) => sum + product.total, 0);
-  };
-
-  const calculateTax = () => {
-    return calculateSubtotal() * 0.15; // 15% tax
   };
 
   const calculateTotal = () => {
-    return calculateSubtotal() + calculateTax();
+    return invoiceData.items.reduce((total, item) => {
+      return total + (item.quantity * item.price);
+    }, 0);
   };
 
   const handleGenerateInvoice = () => {
-    if (!customerInfo.name || !customerInfo.contact || selectedProducts.length === 0) {
-      alert('Please fill customer details and add at least one product');
-      return;
-    }
-
-    const invoiceData = {
-      customerInfo,
-      products: selectedProducts,
-      subtotal: calculateSubtotal(),
-      tax: calculateTax(),
-      total: calculateTotal(),
+    const total = calculateTotal();
+    const finalInvoiceData = {
+      ...invoiceData,
+      total,
       invoiceNumber: `INV-${Date.now()}`,
-      date: new Date().toLocaleDateString()
+      date: new Date().toISOString().split('T')[0]
     };
-
-    console.log('Invoice Data:', invoiceData);
-    onGenerateInvoice(invoiceData);
+    onGenerateInvoice(finalInvoiceData);
   };
 
   return (
-    <div className='h-full w-full px-2'>
-      <div className='InvoiceHeader py-11 bg-secondary'>
-        <h1 className='text-2xl text-textColor font-bold hover:text-tertiary cursor-pointer'>Generate Invoice</h1>
+    <div className='min-h-screen w-full p-2 lg:p-4'>
+      <div className='InvoiceHeader py-6 lg:py-8 rounded-lg mb-4'>
+        <h1 className='text-xl lg:text-2xl text-textColor font-bold hover:text-tertiary cursor-pointer px-4 lg:px-0 text-center'>Generate Invoice</h1>
       </div>
       
-      <div className='my-2 mx-3 h-[calc(100vh-180px)] overflow-y-auto'>
-        <div className="invoice-container border border-textColor p-3 rounded-md bg-secondary min-h-fit">
-          {/* Customer Information */}
-          <div className='mb-4'>
-            <h2 className='text-lg text-textColor font-bold mb-3'>Customer Information</h2>
-            <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
+      <div className='flex justify-center'>
+        <div className='w-full max-w-4xl'>
+          <div className='bg-secondary rounded-lg p-6 lg:p-8'>
+            <div className='grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6'>
               <div>
-                <label className='block text-textColor text-sm font-bold mb-1'>Customer Name *</label>
-                <input
-                  type="text"
-                  name="name"
-                  value={customerInfo.name}
-                  onChange={handleCustomerInfoChange}
-                  className='w-full py-2 px-3 text-textColor rounded-lg focus:outline-none focus:ring-2 focus:ring-textColor border-2 border-textColor bg-primary'
-                  required
-                  placeholder="Enter customer name"
-                />
-              </div>
-              <div>
-                <label className='block text-textColor text-sm font-bold mb-1'>Contact Number *</label>
-                <input
-                  type="tel"
-                  name="contact"
-                  value={customerInfo.contact}
-                  onChange={handleCustomerInfoChange}
-                  className='w-full py-2 px-3 text-textColor rounded-lg focus:outline-none focus:ring-2 focus:ring-textColor border-2 border-textColor bg-primary'
-                  required
-                  placeholder="Enter contact number"
-                />
-              </div>
-            </div>
-          </div>
-
-          {/* Product Selection */}
-          <div className='mb-3'>
-            <h2 className='text-lg text-textColor font-bold mb-2'>Select Products</h2>
-            <div className='mb-2'>
-              <input
-                type="text"
-                placeholder="Search products by name or category"
-                className='w-full py-2 px-3 text-textColor rounded-lg focus:outline-none focus:ring-2 focus:ring-textColor border-2 border-textColor bg-primary'
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-              />
-            </div>
-            <div className="product-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 max-h-32 overflow-y-auto">
-              {filteredProducts.map((product, index) => (
-                <div key={index} className='bg-primary p-3 rounded-lg border border-textColor'>
-                  <h3 className='text-textColor font-bold text-sm'>{product.name}</h3>
-                  <p className='text-textColor text-xs'>Category: {product.category}</p>
-                  <p className='text-textColor text-xs'>Price: ${product.salesPrice}</p>
-                  <p className='text-textColor text-xs'>Available: {product.availableUnits}</p>
-                  <button
-                    onClick={() => handleAddProduct(product)}
-                    className='bg-green py-1 px-2 text-xs text-textColor rounded mt-2 hover:bg-opacity-80 transition-all'
-                  >
-                    Add to Invoice
-                  </button>
+                <h3 className='text-lg text-textColor font-bold mb-4'>Customer Information</h3>
+                <div className='space-y-4'>
+                  <div>
+                    <label className='block text-textColor text-sm mb-1'>Customer Name</label>
+                    <input
+                      type="text"
+                      value={invoiceData.customerName}
+                      onChange={(e) => handleInputChange('customerName', e.target.value)}
+                      className='w-full p-3 bg-primary text-textColor rounded-lg border border-textColor focus:outline-none focus:ring-2 focus:ring-tertiary'
+                      placeholder="Enter customer name"
+                    />
+                  </div>
+                  <div>
+                    <label className='block text-textColor text-sm mb-1'>Email</label>
+                    <input
+                      type="email"
+                      value={invoiceData.customerEmail}
+                      onChange={(e) => handleInputChange('customerEmail', e.target.value)}
+                      className='w-full p-3 bg-primary text-textColor rounded-lg border border-textColor focus:outline-none focus:ring-2 focus:ring-tertiary'
+                      placeholder="Enter email address"
+                    />
+                  </div>
+                  <div>
+                    <label className='block text-textColor text-sm mb-1'>Phone</label>
+                    <input
+                      type="tel"
+                      value={invoiceData.customerPhone}
+                      onChange={(e) => handleInputChange('customerPhone', e.target.value)}
+                      className='w-full p-3 bg-primary text-textColor rounded-lg border border-textColor focus:outline-none focus:ring-2 focus:ring-tertiary'
+                      placeholder="Enter phone number"
+                    />
+                  </div>
                 </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Selected Products */}
-          {selectedProducts.length > 0 && (
-            <div className='mb-4'>
-              <h2 className='text-lg text-textColor font-bold mb-3'>Invoice Items</h2>
-              <div className="selected-products space-y-2 max-h-24">
-                {selectedProducts.map((product, index) => (
-                  <div key={index} className='bg-primary p-3 rounded-lg border border-textColor flex justify-between items-center'>
-                    <div className='flex-1'>
-                      <h3 className='text-textColor font-bold text-sm'>{product.name}</h3>
-                      <p className='text-textColor text-xs'>${product.salesPrice} each</p>
-                    </div>
-                    <div className='flex items-center gap-3'>
-                      <div className='flex items-center gap-2'>
-                        <label className='text-textColor text-xs'>Qty:</label>
-                        <input
-                          type="number"
-                          min="1"
-                          max={product.availableUnits}
-                          value={product.quantity}
-                          onChange={(e) => handleQuantityChange(product.name, parseInt(e.target.value) || 0)}
-                          className='w-16 py-1 px-2 text-textColor rounded border border-textColor bg-secondary text-xs'
-                        />
-                      </div>
-                      <div className='text-textColor font-bold text-sm'>
-                        ${product.total.toFixed(2)}
-                      </div>
-                      <button
-                        onClick={() => handleQuantityChange(product.name, 0)}
-                        className='bg-red py-1 px-2 text-xs text-textColor rounded hover:bg-opacity-80 transition-all'
-                      >
-                        Remove
-                      </button>
-                    </div>
-                  </div>
-                ))}
               </div>
-            </div>
-          )}
-
-          {/* Bill Summary */}
-          {selectedProducts.length > 0 && (
-            <div className='mb-4'>
-              <h2 className='text-lg text-textColor font-bold mb-3'>Bill Summary</h2>
-                              <div className='bg-primary p-3 rounded-lg border border-textColor'>
-                <div className='space-y-2'>
-                  <div className='flex justify-between'>
-                    <span className='text-textColor'>Subtotal:</span>
-                    <span className='text-textColor'>${calculateSubtotal().toFixed(2)}</span>
+              
+              <div>
+                <h3 className='text-lg text-textColor font-bold mb-4'>Invoice Summary</h3>
+                <div className='bg-primary rounded-lg p-4'>
+                  <div className='flex justify-between items-center mb-2'>
+                    <span className='text-textColor'>Total Items:</span>
+                    <span className='text-textColor font-bold'>{invoiceData.items.length}</span>
                   </div>
-                  <div className='flex justify-between'>
-                    <span className='text-textColor'>Tax (15%):</span>
-                    <span className='text-textColor'>${calculateTax().toFixed(2)}</span>
-                  </div>
-                  <div className='flex justify-between border-t border-textColor pt-2'>
-                    <span className='text-textColor font-bold text-lg'>Total:</span>
+                  <div className='flex justify-between items-center'>
+                    <span className='text-textColor'>Total Amount:</span>
                     <span className='text-textColor font-bold text-lg'>${calculateTotal().toFixed(2)}</span>
                   </div>
                 </div>
               </div>
             </div>
-          )}
-
-          {/* Generate Invoice Button */}
-          <div className='flex justify-center mt-3 pb-2'>
-            <button
-              onClick={handleGenerateInvoice}
-              className='bg-green py-2 px-6 text-base text-textColor rounded-lg hover:bg-opacity-80 transition-all font-bold'
-            >
-              Generate Invoice
-            </button>
+            
+            <div className='mb-6'>
+              <div className='flex justify-between items-center mb-4'>
+                <h3 className='text-lg text-textColor font-bold'>Invoice Items</h3>
+                <button
+                  onClick={addItem}
+                  className='bg-green px-4 py-2 text-textColor rounded-lg hover:bg-opacity-80 transition-colors'
+                >
+                  Add Item
+                </button>
+              </div>
+              
+              <div className='space-y-4'>
+                {invoiceData.items.map((item, index) => (
+                  <div key={index} className='grid grid-cols-1 lg:grid-cols-4 gap-4 items-end'>
+                    <div>
+                      <label className='block text-textColor text-sm mb-1'>Item Name</label>
+                      <input
+                        type="text"
+                        value={item.name}
+                        onChange={(e) => handleItemChange(index, 'name', e.target.value)}
+                        className='w-full p-3 bg-primary text-textColor rounded-lg border border-textColor focus:outline-none focus:ring-2 focus:ring-tertiary'
+                        placeholder="Enter item name"
+                      />
+                    </div>
+                    <div>
+                      <label className='block text-textColor text-sm mb-1'>Quantity</label>
+                      <input
+                        type="number"
+                        min="1"
+                        value={item.quantity}
+                        onChange={(e) => handleItemChange(index, 'quantity', e.target.value)}
+                        className='w-full p-3 bg-primary text-textColor rounded-lg border border-textColor focus:outline-none focus:ring-2 focus:ring-tertiary'
+                      />
+                    </div>
+                    <div>
+                      <label className='block text-textColor text-sm mb-1'>Price</label>
+                      <input
+                        type="number"
+                        min="0"
+                        step="0.01"
+                        value={item.price}
+                        onChange={(e) => handleItemChange(index, 'price', e.target.value)}
+                        className='w-full p-3 bg-primary text-textColor rounded-lg border border-textColor focus:outline-none focus:ring-2 focus:ring-tertiary'
+                      />
+                    </div>
+                    <div className='flex gap-2'>
+                      <div className='flex-1'>
+                        <label className='block text-textColor text-sm mb-1'>Subtotal</label>
+                        <div className='p-3 bg-primary text-textColor rounded-lg border border-textColor'>
+                          ${(item.quantity * item.price).toFixed(2)}
+                        </div>
+                      </div>
+                      {invoiceData.items.length > 1 && (
+                        <button
+                          onClick={() => removeItem(index)}
+                          className='bg-red px-3 py-3 text-textColor rounded-lg hover:bg-opacity-80 transition-colors'
+                        >
+                          ×
+                        </button>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+            
+            <div className='flex justify-center'>
+              <button
+                onClick={handleGenerateInvoice}
+                className='bg-tertiary px-8 py-3 text-textColor rounded-lg hover:bg-opacity-80 transition-colors text-lg font-semibold'
+              >
+                Generate Invoice
+              </button>
+            </div>
           </div>
         </div>
       </div>

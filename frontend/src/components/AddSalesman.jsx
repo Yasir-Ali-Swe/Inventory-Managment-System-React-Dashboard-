@@ -9,131 +9,111 @@ const AddSalesman = ({ onBackToSalesmen }) => {
     salary: ''
   });
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
+  const handleInputChange = (field, value) => {
     setFormData(prev => ({
       ...prev,
-      [name]: value
+      [field]: value
     }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('New salesman data:', formData);
-    alert('Salesman added successfully!');
-    onBackToSalesmen();
-  };
-
-  const handleCancel = () => {
     onBackToSalesmen();
   };
 
   return (
-    <div className='h-full w-full px-2'>
-      <div className='SalesmanHeader py-11 bg-secondary'>
-        <h1 className='text-2xl text-textColor font-bold hover:text-tertiary cursor-pointer'>Add New Salesman</h1>
+    <div className='min-h-screen w-full p-2 lg:p-4'>
+      <div className='AddSalesmanHeader py-6 lg:py-8 rounded-lg mb-4'>
+        <h1 className='text-xl lg:text-2xl text-textColor font-bold hover:text-tertiary cursor-pointer px-4 lg:px-0 text-center'>Add New Salesman</h1>
       </div>
       
-      <div className='my-4 mx-3'>
-        <div className="add-form border-textColor border-1 p-6 rounded-md bg-secondary">
-          <form onSubmit={handleSubmit} className='space-y-6'>
-            <div className='grid grid-cols-2 gap-6'>
-              <div>
-                <label className='block text-textColor text-sm font-bold mb-2'>
-                  Name *
-                </label>
-                <input
-                  type="text"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleInputChange}
-                  className='w-full py-2 px-3 text-textColor rounded-lg focus:outline-none focus:ring-2 focus:ring-textColor border-2 border-textColor bg-primary'
-                  required
-                  placeholder="Enter salesman name"
-                />
+      <div className='flex justify-center'>
+        <div className='w-full max-w-2xl'>
+          <div className='bg-secondary rounded-lg p-6 lg:p-8'>
+            <form onSubmit={handleSubmit} className='space-y-6'>
+              <div className='grid grid-cols-1 lg:grid-cols-2 gap-6'>
+                <div>
+                  <label className='block text-textColor text-sm mb-2'>Name *</label>
+                  <input
+                    type="text"
+                    value={formData.name}
+                    onChange={(e) => handleInputChange('name', e.target.value)}
+                    className='w-full p-3 bg-primary text-textColor rounded-lg border border-textColor focus:outline-none focus:ring-2 focus:ring-tertiary'
+                    placeholder="Enter salesman name"
+                    required
+                  />
+                </div>
+                
+                <div>
+                  <label className='block text-textColor text-sm mb-2'>Email *</label>
+                  <input
+                    type="email"
+                    value={formData.email}
+                    onChange={(e) => handleInputChange('email', e.target.value)}
+                    className='w-full p-3 bg-primary text-textColor rounded-lg border border-textColor focus:outline-none focus:ring-2 focus:ring-tertiary'
+                    placeholder="salesman@example.com"
+                    required
+                  />
+                </div>
+                
+                <div>
+                  <label className='block text-textColor text-sm mb-2'>Mobile *</label>
+                  <input
+                    type="tel"
+                    value={formData.mobile}
+                    onChange={(e) => handleInputChange('mobile', e.target.value)}
+                    className='w-full p-3 bg-primary text-textColor rounded-lg border border-textColor focus:outline-none focus:ring-2 focus:ring-tertiary'
+                    placeholder="1234567890"
+                    required
+                  />
+                </div>
+                
+                <div>
+                  <label className='block text-textColor text-sm mb-2'>Sales *</label>
+                  <input
+                    type="number"
+                    min="0"
+                    step="0.01"
+                    value={formData.sales}
+                    onChange={(e) => handleInputChange('sales', e.target.value)}
+                    className='w-full p-3 bg-primary text-textColor rounded-lg border border-textColor focus:outline-none focus:ring-2 focus:ring-tertiary'
+                    placeholder="0.00"
+                    required
+                  />
+                </div>
+                
+                <div>
+                  <label className='block text-textColor text-sm mb-2'>Salary *</label>
+                  <input
+                    type="number"
+                    min="0"
+                    step="0.01"
+                    value={formData.salary}
+                    onChange={(e) => handleInputChange('salary', e.target.value)}
+                    className='w-full p-3 bg-primary text-textColor rounded-lg border border-textColor focus:outline-none focus:ring-2 focus:ring-tertiary'
+                    placeholder="0.00"
+                    required
+                  />
+                </div>
               </div>
-
-              <div>
-                <label className='block text-textColor text-sm font-bold mb-2'>
-                  Email *
-                </label>
-                <input
-                  type="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleInputChange}
-                  className='w-full py-2 px-3 text-textColor rounded-lg focus:outline-none focus:ring-2 focus:ring-textColor border-2 border-textColor bg-primary'
-                  required
-                  placeholder="salesman@example.com"
-                />
+              
+              <div className='flex justify-center gap-4 pt-6'>
+                <button
+                  type="button"
+                  onClick={onBackToSalesmen}
+                  className='bg-red px-6 py-3 text-textColor rounded-lg hover:bg-opacity-80 transition-colors'
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  className='bg-green px-6 py-3 text-textColor rounded-lg hover:bg-opacity-80 transition-colors'
+                >
+                  Add Salesman
+                </button>
               </div>
-
-              <div>
-                <label className='block text-textColor text-sm font-bold mb-2'>
-                  Mobile *
-                </label>
-                <input
-                  type="tel"
-                  name="mobile"
-                  value={formData.mobile}
-                  onChange={handleInputChange}
-                  className='w-full py-2 px-3 text-textColor rounded-lg focus:outline-none focus:ring-2 focus:ring-textColor border-2 border-textColor bg-primary'
-                  required
-                  placeholder="1234567890"
-                />
-              </div>
-
-              <div>
-                <label className='block text-textColor text-sm font-bold mb-2'>
-                  Sales ($) *
-                </label>
-                <input
-                  type="number"
-                  name="sales"
-                  value={formData.sales}
-                  onChange={handleInputChange}
-                  className='w-full py-2 px-3 text-textColor rounded-lg focus:outline-none focus:ring-2 focus:ring-textColor border-2 border-textColor bg-primary'
-                  min="0"
-                  step="0.01"
-                  required
-                  placeholder="0.00"
-                />
-              </div>
-
-              <div>
-                <label className='block text-textColor text-sm font-bold mb-2'>
-                  Salary ($) *
-                </label>
-                <input
-                  type="number"
-                  name="salary"
-                  value={formData.salary}
-                  onChange={handleInputChange}
-                  className='w-full py-2 px-3 text-textColor rounded-lg focus:outline-none focus:ring-2 focus:ring-textColor border-2 border-textColor bg-primary'
-                  min="0"
-                  step="0.01"
-                  required
-                  placeholder="0.00"
-                />
-              </div>
-            </div>
-
-            <div className='flex gap-4 pt-4'>
-              <button
-                type="submit"
-                className='bg-green py-2 px-8 text-lg text-textColor rounded-lg hover:bg-opacity-80 transition-all'
-              >
-                Add Salesman
-              </button>
-              <button
-                type="button"
-                onClick={handleCancel}
-                className='bg-red py-2 px-8 text-lg text-textColor rounded-lg hover:bg-opacity-80 transition-all'
-              >
-                Cancel
-              </button>
-            </div>
-          </form>
+            </form>
+          </div>
         </div>
       </div>
     </div>
