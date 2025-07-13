@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { Login, Signup, Categories, Salesman, Analytics, Reports, Dashboard, Products, Profile, Invoice, AddProduct } from './pages/index.jsx';
+import { Login, Signup, Categories, Salesman, Analytics, Reports, Dashboard, Products, Profile, Invoice } from './pages/index.jsx';
 import { Layout } from './components/index.jsx';
 
 const App = () => {
@@ -15,7 +15,6 @@ const App = () => {
           <Route path='invoice' element={<Invoice />} />
           <Route path='profile' element={<Profile />} />
           <Route path='reports' element={<Reports />} />
-          <Route path='addproduct' element={<AddProduct />} />
         </Route>
         <Route path='login' element={<Login />} />
         <Route path='signup' element={<Signup />} />
