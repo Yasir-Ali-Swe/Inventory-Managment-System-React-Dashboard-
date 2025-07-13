@@ -4,4 +4,13 @@ import SalesmanSalesChart from "./SalesmanSalesChart.jsx";
 import TopThreeSalingProducts from "./TopThreeSalingProducts.jsx"
 import MonthlySales from "./MonthlySales.jsx";
 import TopHighProfitProducts from "./TopHighProfitProducts.jsx";
-export { Sidebar, Layout, SalesmanSalesChart, TopThreeSalingProducts ,MonthlySales ,TopHighProfitProducts};
+import Product from "./Product.jsx";
+import EditProduct from "./EditProduct.jsx";
+import AddProduct from "./AddProduct.jsx";
+import Salesman from "./Salesman.jsx";
+import EditSalesman from "./EditSalesman.jsx";
+import AddSalesman from "./AddSalesman.jsx";
+import Category from "./Category.jsx";
+import EditCategory from "./EditCategory.jsx";
+import AddCategory from "./AddCategory.jsx";
+export { Sidebar, Layout, SalesmanSalesChart, TopThreeSalingProducts ,MonthlySales ,TopHighProfitProducts, Product, EditProduct, AddProduct, Salesman, EditSalesman, AddSalesman, Category, EditCategory, AddCategory};
