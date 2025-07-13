@@ -5,6 +5,8 @@ import { MdOutlineTrendingUp } from "react-icons/md";
 import { MdOutlineCategory } from "react-icons/md";
 import { FaUsers } from "react-icons/fa";
 import { useNavigate } from 'react-router-dom';
+import { SalesmanSalesChart, TopThreeSalingProducts, MonthlySales } from '../components/index.jsx';
+
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -13,7 +15,7 @@ const Dashboard = () => {
       <div className='DashboardHeader py-11 bg-secondary'>
         <h1 className='text-2xl text-textColor font-bold hover:text-tertiary cursor-pointer'>Overall System Overview</h1>
       </div>
-      <div className="DashboardCards mt-2  grid lg:grid-cols-4 sm:grid-cols-1 md:grid-cols-2 gap-2">
+      <div className="DashboardCards mt-2 grid lg:grid-cols-4 sm:grid-cols-1 md:grid-cols-2 gap-2 ">
         <div onClick={() => navigate('/analytics')} className='sales h-[160px] bg-yellow flex justify-center flex-col gap-3 rounded-xl cursor-pointer'>
           <div className='flex justify-center items-center gap-2'>
             <FaMoneyBill1Wave className='text-4xl font-black text-primary ' />
@@ -47,6 +49,20 @@ const Dashboard = () => {
           <h1 className='text-4xl text-secondary font-bold text-center'>Total salesman</h1>
         </div>
       </div>
+      <div className='charts my-4 flex flex-1 flex-col w-full max-h-[450px] overflow-y-auto overflow-x-hidden'>
+        <div className='w-full flex gap-4 items-start'>
+          <div className='w-[63%]'>
+            <SalesmanSalesChart />
+          </div>
+          <div className='w-[37%]'>
+            <TopThreeSalingProducts />
+          </div>
+        </div>
+        <div className='w-full my-8'>
+          <MonthlySales />
+        </div>
+      </div>
+
     </div>
   )
 }
