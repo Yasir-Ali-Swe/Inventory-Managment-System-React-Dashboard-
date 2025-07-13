@@ -7,13 +7,12 @@ import { FaUsers } from "react-icons/fa";
 import { useNavigate } from 'react-router-dom';
 import { SalesmanSalesChart, TopThreeSalingProducts, MonthlySales } from '../components/index.jsx';
 
-
 const Dashboard = () => {
   const navigate = useNavigate();
   return (
     <div className='min-h-screen w-full p-2 lg:p-4'>
-      <div className='DashboardHeader py-6 lg:py-11 bg-secondary rounded-lg mb-4'>
-        <h1 className='text-xl lg:text-2xl text-textColor font-bold hover:text-tertiary cursor-pointer px-4 lg:px-0'>Overall System Overview</h1>
+      <div className='DashboardHeader py-6 lg:py-8 rounded-lg mb-4'>
+        <h1 className='text-xl lg:text-2xl text-textColor font-bold hover:text-tertiary cursor-pointer px-4 lg:px-0 text-center'>Overall System Overview</h1>
       </div>
       
       <div className="DashboardCards grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-4 mb-6">

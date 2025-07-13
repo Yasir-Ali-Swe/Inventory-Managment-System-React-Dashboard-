@@ -9,7 +9,6 @@ const Login = () => {
 
   const handleLogin = (e) => {
     e.preventDefault();
-    console.log(email, password);
     navigate('/');
   }
   return (
