@@ -43,7 +43,12 @@ const Layout = () => {
           overflow-y-auto
           transition-all
           pt-0
-          ml-[280px]
+          w-full
+          lg:ml-[280px]
+          lg:max-w-[calc(100vw-280px)]
+          xl:max-w-screen-xl
+          2xl:max-w-screen-2xl
+          mx-auto
         "
       >
         <Outlet />
