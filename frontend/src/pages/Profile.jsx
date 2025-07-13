@@ -1,13 +1,37 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { Profile as ProfileComponent, EditProfile } from '../components/index.jsx';
 
-const Profile = () => {
+const ProfilePage = () => {
+  const [isEditing, setIsEditing] = useState(false);
+  const [selectedProfile, setSelectedProfile] = useState(null);
+
+  console.log('ProfilePage component render - isEditing:', isEditing, 'selectedProfile:', selectedProfile);
+
+  const handleEditProfile = (profile) => {
+    console.log('handleEditProfile called with profile:', profile);
+    setSelectedProfile(profile);
+    setIsEditing(true);
+    console.log('State updated - isEditing:', true, 'selectedProfile:', profile);
+  };
+
+  const handleBackToProfile = () => {
+    setIsEditing(false);
+    setSelectedProfile(null);
+    console.log('State reset - back to profile view');
+  };
+
   return (
-    <div className='h-screen px-2'>
-      <div className='ProfileHeader py-11 bg-secondary'>
-        <h1 className='text-2xl text-textColor font-bold hover:text-tertiary cursor-pointer'>Manage Your Profile</h1>
-      </div>
-    </div>
+    <>
+      {!isEditing ? (
+        <ProfileComponent onEditProfile={handleEditProfile} />
+      ) : (
+        <EditProfile 
+          profile={selectedProfile} 
+          onBackToProfile={handleBackToProfile} 
+        />
+      )}
+    </>
   )
 }
 
-export default Profile;
+export default ProfilePage;

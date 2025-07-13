@@ -1,13 +1,37 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { Invoice as InvoiceComponent, InvoicePreview } from '../components/index.jsx';
 
-const Invoices = () => {
+const InvoicePage = () => {
+  const [isPreview, setIsPreview] = useState(false);
+  const [invoiceData, setInvoiceData] = useState(null);
+
+  console.log('InvoicePage component render - isPreview:', isPreview, 'invoiceData:', invoiceData);
+
+  const handleGenerateInvoice = (data) => {
+    console.log('handleGenerateInvoice called with data:', data);
+    setInvoiceData(data);
+    setIsPreview(true);
+    console.log('State updated - isPreview:', true, 'invoiceData:', data);
+  };
+
+  const handleBackToInvoice = () => {
+    setIsPreview(false);
+    setInvoiceData(null);
+    console.log('State reset - back to invoice form');
+  };
+
   return (
-    <div className='h-screen px-2'>
-      <div className='AnalyticsHeader py-11 bg-secondary'>
-        <h1 className='text-2xl text-textColor font-bold hover:text-tertiary cursor-pointer'>Generate Invoice</h1>
-      </div>
-    </div>
+    <>
+      {!isPreview ? (
+        <InvoiceComponent onGenerateInvoice={handleGenerateInvoice} />
+      ) : (
+        <InvoicePreview 
+          invoiceData={invoiceData} 
+          onBackToInvoice={handleBackToInvoice} 
+        />
+      )}
+    </>
   )
 }
 
-export default Invoices;
+export default InvoicePage;
