@@ -25,7 +25,7 @@ const Salesman = () => {
   };
 
   return (
-    <>
+    <div className="w-full max-w-7xl mx-auto px-2 sm:px-4">
       {!isEditing && !isAdding ? (
         <SalesmanComponent onEditSalesman={handleEditSalesman} onAddSalesman={handleAddSalesman} />
       ) : isEditing ? (
@@ -36,7 +36,7 @@ const Salesman = () => {
       ) : (
         <AddSalesman onBackToSalesmen={handleBackToSalesmen} />
       )}
-    </>
+    </div>
   )
 }
 

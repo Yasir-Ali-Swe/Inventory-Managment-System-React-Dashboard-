@@ -14,22 +14,21 @@ const Analytics = () => {
           Analytics
         </h1>
       </div>
-
-      <div className='AnalyticsCards flex flex-col gap-4 lg:gap-6'>
-        <div className='w-full h-[350px] lg:h-[400px]'>
-          <MonthlySales />
-        </div>
-        
-        <div className='w-full h-[350px] lg:h-[400px]'>
-          <SalesmanSalesChart />
-        </div>
-        
-        <div className='flex flex-col lg:flex-row gap-4 lg:gap-6'>
-          <div className='w-full lg:w-1/2 h-[350px] lg:h-[400px]'>
-            <TopHighProfitProducts />
+      <div className="w-full max-w-7xl mx-auto px-2 sm:px-4">
+        <div className='AnalyticsCards flex flex-col gap-4 lg:gap-6'>
+          <div className='w-full h-[350px] lg:h-[400px]'>
+            <MonthlySales />
           </div>
-          <div className='w-full lg:w-1/2 h-[350px] lg:h-[400px]'>
-            <TopThreeSalingProducts />
+          <div className='w-full h-[350px] lg:h-[400px]'>
+            <SalesmanSalesChart />
+          </div>
+          <div className='flex flex-col lg:flex-row gap-4 lg:gap-6'>
+            <div className='w-full lg:w-1/2 h-[350px] lg:h-[400px]'>
+              <TopHighProfitProducts />
+            </div>
+            <div className='w-full lg:w-1/2 h-[350px] lg:h-[400px]'>
+              <TopThreeSalingProducts />
+            </div>
           </div>
         </div>
       </div>

@@ -25,7 +25,7 @@ const Categories = () => {
   };
 
   return (
-    <>
+    <div className="w-full max-w-7xl mx-auto px-2 sm:px-4">
       {!isEditing && !isAdding ? (
         <Category onEditCategory={handleEditCategory} onAddCategory={handleAddCategory} />
       ) : isEditing ? (
@@ -36,7 +36,7 @@ const Categories = () => {
       ) : (
         <AddCategory onBackToCategories={handleBackToCategories} />
       )}
-    </>
+    </div>
   )
 }
 
