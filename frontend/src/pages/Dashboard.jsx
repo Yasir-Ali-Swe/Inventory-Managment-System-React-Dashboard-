@@ -11,58 +11,60 @@ import { SalesmanSalesChart, TopThreeSalingProducts, MonthlySales } from '../com
 const Dashboard = () => {
   const navigate = useNavigate();
   return (
-    <div className='h-screen w-full px-2'>
-      <div className='DashboardHeader py-11 bg-secondary'>
-        <h1 className='text-2xl text-textColor font-bold hover:text-tertiary cursor-pointer'>Overall System Overview</h1>
+    <div className='min-h-screen w-full p-2 lg:p-4'>
+      <div className='DashboardHeader py-6 lg:py-11 bg-secondary rounded-lg mb-4'>
+        <h1 className='text-xl lg:text-2xl text-textColor font-bold hover:text-tertiary cursor-pointer px-4 lg:px-0'>Overall System Overview</h1>
       </div>
-      <div className="DashboardCards mt-2 grid lg:grid-cols-4 sm:grid-cols-1 md:grid-cols-2 gap-2 ">
-        <div onClick={() => navigate('/analytics')} className='sales h-[160px] bg-yellow flex justify-center flex-col gap-3 rounded-xl cursor-pointer'>
+      
+      <div className="DashboardCards grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-4 mb-6">
+        <div onClick={() => navigate('/analytics')} className='sales h-[120px] lg:h-[160px] bg-yellow flex justify-center flex-col gap-2 lg:gap-3 rounded-xl cursor-pointer p-4 transition-transform hover:scale-105'>
           <div className='flex justify-center items-center gap-2'>
-            <FaMoneyBill1Wave className='text-4xl font-black text-primary ' />
+            <FaMoneyBill1Wave className='text-2xl lg:text-4xl font-black text-primary' />
             <div className='flex justify-center items-center'>
-              <h1 className='text-3xl text-primary font-bold'>100,000 </h1>
-              <MdOutlineTrendingUp className='text-2xl font-black text-primary' />
+              <h1 className='text-xl lg:text-3xl text-primary font-bold'>100,000</h1>
+              <MdOutlineTrendingUp className='text-lg lg:text-2xl font-black text-primary' />
             </div>
-
           </div>
-          <h1 className='text-4xl text-primary font-bold text-center'>Total Sales</h1>
+          <h1 className='text-lg lg:text-4xl text-primary font-bold text-center'>Total Sales</h1>
         </div>
-        <div onClick={() => navigate('/products')} className='products h-[160px] bg-green flex justify-center flex-col gap-3 rounded-xl cursor-pointer'>
+        
+        <div onClick={() => navigate('/products')} className='products h-[120px] lg:h-[160px] bg-green flex justify-center flex-col gap-2 lg:gap-3 rounded-xl cursor-pointer p-4 transition-transform hover:scale-105'>
           <div className='flex justify-center items-center gap-2'>
-            <MdOutlineProductionQuantityLimits className='text-5xl font-black text-red ' />
-            <h1 className='text-4xl text-red font-bold'>300+</h1>
+            <MdOutlineProductionQuantityLimits className='text-3xl lg:text-5xl font-black text-red' />
+            <h1 className='text-xl lg:text-4xl text-red font-bold'>300+</h1>
           </div>
-          <h1 className='text-4xl text-red font-bold text-center'>Total Products</h1>
+          <h1 className='text-lg lg:text-4xl text-red font-bold text-center'>Total Products</h1>
         </div>
-        <div onClick={() => navigate('/categories')} className='categories h-[160px] bg-red flex justify-center flex-col gap-3 rounded-xl cursor-pointer'>
+        
+        <div onClick={() => navigate('/categories')} className='categories h-[120px] lg:h-[160px] bg-red flex justify-center flex-col gap-2 lg:gap-3 rounded-xl cursor-pointer p-4 transition-transform hover:scale-105'>
           <div className='flex justify-center items-center gap-2'>
-            <MdOutlineCategory className='text-5xl font-black text-yellow ' />
-            <h1 className='text-4xl text-yellow font-bold'>50+</h1>
+            <MdOutlineCategory className='text-3xl lg:text-5xl font-black text-yellow' />
+            <h1 className='text-xl lg:text-4xl text-yellow font-bold'>50+</h1>
           </div>
-          <h1 className='text-4xl text-yellow font-bold text-center'>Total Categories</h1>
+          <h1 className='text-lg lg:text-4xl text-yellow font-bold text-center'>Total Categories</h1>
         </div>
-        <div onClick={() => navigate('/salesman')} className='salesman h-[160px] bg-blue flex justify-center flex-col gap-3 rounded-xl cursor-pointer'>
+        
+        <div onClick={() => navigate('/salesman')} className='salesman h-[120px] lg:h-[160px] bg-blue flex justify-center flex-col gap-2 lg:gap-3 rounded-xl cursor-pointer p-4 transition-transform hover:scale-105'>
           <div className='flex justify-center items-center gap-2'>
-            <FaUsers className='text-5xl font-black text-secondary ' />
-            <h1 className='text-4xl text-secondary font-bold'>3</h1>
+            <FaUsers className='text-3xl lg:text-5xl font-black text-secondary' />
+            <h1 className='text-xl lg:text-4xl text-secondary font-bold'>3</h1>
           </div>
-          <h1 className='text-4xl text-secondary font-bold text-center'>Total salesman</h1>
+          <h1 className='text-lg lg:text-4xl text-secondary font-bold text-center'>Total Salesman</h1>
         </div>
       </div>
-      <div className='charts my-4 flex flex-1 flex-col w-full max-h-[450px] overflow-y-auto overflow-x-hidden'>
-        <div className='w-full flex gap-4 items-start'>
-          <div className='w-[63%]'>
-            <SalesmanSalesChart />
-          </div>
-          <div className='w-[37%]'>
-            <TopThreeSalingProducts />
-          </div>
+      
+      <div className='charts flex flex-col lg:flex-row gap-4 lg:gap-6 mb-6'>
+        <div className='w-full lg:w-[63%] h-[350px] lg:h-[400px]'>
+          <SalesmanSalesChart />
         </div>
-        <div className='w-full my-8'>
-          <MonthlySales />
+        <div className='w-full lg:w-[37%] h-[350px] lg:h-[400px]'>
+          <TopThreeSalingProducts />
         </div>
       </div>
-
+      
+      <div className='w-full h-[350px] lg:h-[400px]'>
+        <MonthlySales />
+      </div>
     </div>
   )
 }

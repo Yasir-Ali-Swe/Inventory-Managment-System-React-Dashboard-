@@ -8,29 +8,30 @@ import {
 
 const Analytics = () => {
   return (
-    <div className='h-screen w-full px-2 overflow-hidden'>
-      <div className='AnalyticsHeader py-11 bg-secondary'>
-        <h1 className='text-2xl text-textColor font-bold hover:text-tertiary cursor-pointer'>
+    <div className='min-h-screen w-full p-2 lg:p-4 overflow-hidden'>
+      <div className='AnalyticsHeader py-6 lg:py-11 bg-secondary rounded-lg mb-4'>
+        <h1 className='text-xl lg:text-2xl text-textColor font-bold hover:text-tertiary cursor-pointer px-4 lg:px-0'>
           Analytics
         </h1>
       </div>
 
-      <div className='AnalyticsCards mt-2 max-h-[650px] overflow-y-auto flex flex-col gap-5'>
-        <div className='w-full h-[380px] my-3'>
+      <div className='AnalyticsCards flex flex-col gap-4 lg:gap-6'>
+        <div className='w-full h-[350px] lg:h-[400px]'>
           <MonthlySales />
         </div>
-        <div className='w-full h-[400px] my-3'>
+        
+        <div className='w-full h-[350px] lg:h-[400px]'>
           <SalesmanSalesChart />
         </div>
-        <div className='flex gap-5 my-3'>
-          <div className='w-full md:w-1/2 h-[400px]'>
+        
+        <div className='flex flex-col lg:flex-row gap-4 lg:gap-6'>
+          <div className='w-full lg:w-1/2 h-[350px] lg:h-[400px]'>
             <TopHighProfitProducts />
           </div>
-          <div className='w-full md:w-1/2 h-[400px]'>
+          <div className='w-full lg:w-1/2 h-[350px] lg:h-[400px]'>
             <TopThreeSalingProducts />
           </div>
         </div>
-
       </div>
     </div>
   );
