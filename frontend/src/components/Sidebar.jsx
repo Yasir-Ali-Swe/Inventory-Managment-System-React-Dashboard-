@@ -52,7 +52,7 @@ const Sidebar = ({ onClose }) => {
                     onClick={onClose}
                     className='p-2 text-textColor hover:text-tertiary transition-colors'
                 >
-                    <HiX size={24} />
+                    {/* <HiX size={24} /> */}
                 </button>
             </div>
 

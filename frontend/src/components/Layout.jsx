@@ -24,9 +24,9 @@ const Layout = () => {
       <div className="lg:hidden fixed top-4 left-4 z-50">
         <button
           onClick={toggleSidebar}
-          className="p-2 bg-secondary rounded-lg text-textColor hover:bg-tertiary transition-colors"
+          className="p-2 bg-textColor rounded-lg  hover:bg-tertiary transition-colors"
         >
-          {isSidebarOpen ? <HiX size={24} /> : <HiMenu size={24} />}
+          {isSidebarOpen ? <HiX size={24} /> : <HiMenu size={24} className='bg-textColor text-primary'/>}
         </button>
       </div>
       {isSidebarOpen && (
