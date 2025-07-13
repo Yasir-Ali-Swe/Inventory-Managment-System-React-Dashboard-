@@ -10,6 +10,10 @@ const Sidebar = ({ onClose }) => {
             path: '/'
         },
         {
+            name: 'Analytics',
+            path: '/analytics'
+        },
+        {
             name: 'Products',
             path: '/products'
         },
@@ -24,10 +28,6 @@ const Sidebar = ({ onClose }) => {
         {
             name: 'Invoice',
             path: '/invoice'
-        },
-        {
-            name: 'Analytics',
-            path: '/analytics'
         },
          {
             name: 'Profile',
